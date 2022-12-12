@@ -64,7 +64,93 @@ def get_signup(memberID, eventID, sessionNum):
     the_response.mimetype = 'application/json'
     return the_response
 
-# SELECT * FROM SignUp WHERE MemberId = 1 AND EventId = 14 AND SessionNum = 1;
+# Get event information for specific event session
+@chaarg.route('/eventInfo/<eventID>/<sessionNum>', methods=['GET'])
+def get_event_info( eventID, sessionNum):
+    cursor = db.get_db().cursor()
+    cursor.execute('SELECT *\
+        FROM EventSession ES\
+        JOIN WeeklyEvent WE on ES.EventId = WE.EventId\
+        JOIN EventType ET on WE.TypeId = ET.TypeId\
+        JOIN Instructor I on ES.InstructedBy = I.InstructorId\
+        JOIN Location L on ES.LocatedAt = L.LocationId\
+        JOIN Studio S on WE.HostedBy = S.StudioId\
+        WHERE ES.EventId = {0} AND ES.SessionNum = {1};'.format( eventID, sessionNum))
+    row_headers = [x[0] for x in cursor.description]
+    json_data = []
+    theData = cursor.fetchall()
+    for row in theData:
+        json_data.append(dict(zip(row_headers, row)))
+    the_response = make_response(json.dumps(json_data, default=str))
+    the_response.status_code = 200
+    the_response.mimetype = 'application/json'
+    return the_response
+
+# Get event information for specific event session
+@chaarg.route('/memberSessionInfo/<memberID>/<eventID>/<sessionNum>', methods=['GET'])
+def get_member_session_info( memberID, eventID, sessionNum):
+    cursor = db.get_db().cursor()
+    cursor.execute('SELECT (Capacity - COUNT(SU.MemberId)) AS RemainingSpots,\
+            SignedUpBool,\
+            WaitlistBool\
+        FROM EventSession ES\
+        LEFT JOIN SignUp SU on ES.EventId = SU.EventId and ES.SessionNum = SU.SessionNum\
+        LEFT JOIN\
+            (SELECT SU2.MemberID, SU2.EventId, SU2.SessionNum, COUNT(*) as SignedUpBool FROM SignUp SU2 WHERE MemberId = {0} AND SU2.DeletedAt IS NULL GROUP BY EventId, SessionNum) MemberSignUp\
+            ON ES.EventID = MemberSignUp.EventId AND ES.SessionNum = MemberSignUp.SessionNum\
+        LEFT JOIN\
+            (SELECT W.MemberID, W.EventId, W.SessionNum, COUNT(*) as WaitlistBool FROM Waitlist W WHERE MemberId = {0} AND W.DeletedAt IS NULL GROUP BY EventId, SessionNum) MemberWaitlist\
+            ON ES.EventID = MemberWaitlist.EventId AND ES.SessionNum = MemberWaitlist.SessionNum\
+        WHERE ES.EventId = {1} AND ES.SessionNum = {2}\
+        GROUP BY ES.EventId, ES.SessionNum'.format(memberID, eventID, sessionNum))
+    row_headers = [x[0] for x in cursor.description]
+    json_data = []
+    theData = cursor.fetchall()
+    for row in theData:
+        json_data.append(dict(zip(row_headers, row)))
+    the_response = make_response(json.dumps(json_data, default=str))
+    the_response.status_code = 200
+    the_response.mimetype = 'application/json'
+    return the_response
+
+# Get reviews for studio
+@chaarg.route('/reviews/<studioId>', methods=['GET'])
+def get_reviews(studioId):
+    cursor = db.get_db().cursor()
+    cursor.execute('SELECT Bolts, Comment, M.FirstName, M.LastName\
+        FROM Review\
+        JOIN WeeklyEvent WE on Review.EventId = WE.EventId\
+        JOIN Member M on Review.MemberId = M.MemberId\
+        WHERE WE.HostedBy = {0};'.format(studioId))
+    row_headers = [x[0] for x in cursor.description]
+    json_data = []
+    theData = cursor.fetchall()
+    for row in theData:
+        json_data.append(dict(zip(row_headers, row)))
+    the_response = make_response(json.dumps(json_data, default=str))
+    the_response.status_code = 200
+    the_response.mimetype = 'application/json'
+    return the_response
+
+# Get average for studio
+@chaarg.route('/averageBolts/<studioId>', methods=['GET'])
+def get_avg_bolts(studioId):
+    cursor = db.get_db().cursor()
+    cursor.execute('SELECT AVG(Bolts) AS AverageBolts\
+        FROM Review\
+        JOIN WeeklyEvent WE on Review.EventId = WE.EventId\
+        WHERE WE.HostedBy = {0}\
+        GROUP BY HostedBy;'.format(studioId))
+    row_headers = [x[0] for x in cursor.description]
+    json_data = []
+    theData = cursor.fetchall()
+    for row in theData:
+        json_data.append(dict(zip(row_headers, row)))
+    the_response = make_response(json.dumps(json_data, default=str))
+    the_response.status_code = 200
+    the_response.mimetype = 'application/json'
+    return the_response
+
 
 # Get all events for a given member from the DB
 @chaarg.route('/memberEvents/<memberID>', methods=['GET'])
