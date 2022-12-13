@@ -30,6 +30,7 @@ From the home screen, you can choose to act as any of those three user types.
 
 <img width="1266" alt="CHAARG Weekly Workout Management System Welcome Screen" src="https://user-images.githubusercontent.com/68513658/207450000-0b0fe099-15c8-4042-8314-8554448e2dc5.png">
 
+## CHAARG Member
 As a General CHAARG Member, you have the ability to see all public event sessions. 
 You can choose to sign-up for any of these event sessions. If they have reached capacity, you can join the waitlist. 
 At any time, you can change your own sign-up or waitlist status for any event. 
@@ -40,14 +41,18 @@ In this app prototype, you can choose to impersonate any CHAARG Member from the 
 
 For the CHAARG Committee Members and CHAARG E-Board Members there is no member-specific information so there is no need for this dropdown. 
 
+## CHAARG Committee Member
 A CHAARG Committee Member can also view all public event sessions, but they have access to more information such as event capacity, sign-ups and waitlist. 
 The CHAARG Committee Member can adjust the sign-up and waitlist for event sessions. 
 <img width="1370" alt="CHAARG Committee Member Event Screen" src="https://user-images.githubusercontent.com/68513658/207450934-b98d5b34-4587-4cc5-a2fb-1785178f57ba.png">
 <img width="1118" alt="CHAARG Committee Member Manage Sign-Ups Screen" src="https://user-images.githubusercontent.com/68513658/207450952-aa647317-4085-4371-b057-4f6849ad5886.png">
 
+## CHAARG E-Board Member
 A CHAARG Executive Board Member can see all events and toggle their publicity. 
 These users can also add Weekly Events and Event Sessions to the DB.
 <img width="1311" alt="CHAARG E-Board Events Screen" src="https://user-images.githubusercontent.com/68513658/207451134-98248812-0ae3-4b6c-a335-aecfb74846ad.png">
 <img width="988" alt="CHAARG E-Board Add Event Screen" src="https://user-images.githubusercontent.com/68513658/207451151-05568616-13b3-44ce-b359-99a6e15d9508.png">
 <img width="1123" alt="CHAARG E-Board Event Details Screen" src="https://user-images.githubusercontent.com/68513658/207451161-ac3cade8-9b5b-41ae-95d6-6512f21bfdbe.png">
 <img width="775" alt="CHAARG E-Board Add Event Session Screen" src="https://user-images.githubusercontent.com/68513658/207451179-44d9d4de-a5e0-4cb1-a36a-8230cb5d9cf5.png">
+
+A Studio might not have any instructors. This field is optional so if there are no choices in the dropdown, it can be left blank. 
