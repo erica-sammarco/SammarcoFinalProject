@@ -5,12 +5,6 @@ from src import db
 
 chaarg = Blueprint('chaarg', __name__)
 
-# This is a base route
-# we simply return a string.  
-@chaarg.route('/')
-def home():
-    return ('<h1>Hello from the CHAARG app!!</h1>')
-
 # Get all events from the DB
 @chaarg.route('/events', methods=['GET'])
 def get_events():
@@ -107,22 +101,6 @@ def get_members():
     the_response.mimetype = 'application/json'
     return the_response
 
-
-# # Get a member's sign up for an event, if it exists
-# @chaarg.route('/memberSignUp/<memberID>/<eventID>/<sessionNum>', methods=['GET'])
-# def get_signup(memberID, eventID, sessionNum):
-#     cursor = db.get_db().cursor()
-#     cursor.execute('SELECT * FROM SignUp WHERE MemberId = {0} AND EventId = {1} AND SessionNum = {2}'.format(memberID, eventID, sessionNum))
-#     row_headers = [x[0] for x in cursor.description]
-#     json_data = []
-#     theData = cursor.fetchall()
-#     for row in theData:
-#         json_data.append(dict(zip(row_headers, row)))
-#     the_response = make_response(jsonify(json_data))
-#     the_response.status_code = 200
-#     the_response.mimetype = 'application/json'
-#     return the_response
-
 # Get event information for specific event session
 @chaarg.route('/eventInfo/<eventID>/<sessionNum>', methods=['GET'])
 def get_event_info( eventID, sessionNum):
@@ -206,30 +184,6 @@ def get_avg_bolts(studioId):
     for row in theData:
         json_data.append(dict(zip(row_headers, row)))
     the_response = make_response(json.dumps(json_data, default=str))
-    the_response.status_code = 200
-    the_response.mimetype = 'application/json'
-    return the_response
-
-
-# Get all event sessions for a given member from the DB
-@chaarg.route('/memberEvents/<memberID>', methods=['GET'])
-def get_member_events(memberID):
-    cursor = db.get_db().cursor()
-    cursor.execute('SELECT ES.EventId, ES.SessionNum, DateTime, Name, Type, Title AS Location, Address, (Capacity - COUNT(MemberId)) AS RemainingSpots\
-        FROM EventSession ES\
-        JOIN WeeklyEvent WE on ES.EventId = WE.EventId\
-        JOIN Studio S on WE.HostedBy = S.StudioId\
-        JOIN EventType ET on WE.TypeId = ET.TypeId\
-        JOIN Location L on ES.LocatedAt = L.LocationId\
-        JOIN SignUp SU on ES.EventId = SU.EventId and ES.SessionNum = SU.SessionNum\
-        WHERE MemberId = {0}\
-        GROUP BY ES.EventId, ES.SessionNum'.format(memberID))
-    row_headers = [x[0] for x in cursor.description]
-    json_data = []
-    theData = cursor.fetchall()
-    for row in theData:
-        json_data.append(dict(zip(row_headers, row)))
-    the_response = make_response(json.dumps(json_data, default=str)) # jsonify(json_data)
     the_response.status_code = 200
     the_response.mimetype = 'application/json'
     return the_response
@@ -365,21 +319,6 @@ def delete_waitlist():
     cursor.execute('UPDATE Waitlist SET DeletedAt = CURRENT_TIMESTAMP WHERE MemberId = {0} AND EventId = {1} AND SessionNum = {2}'.format(memberId, eventId, sessionNum))
     cursor.connection.commit()
     return "Success", 201
-
-
-# @chaarg.route("/getWaitlist", methods=['GET'])
-# def get_waitlist():
-#     cursor = db.get_db().cursor()
-#     cursor.execute('SELECT * FROM Waitlist')
-#     row_headers = [x[0] for x in cursor.description]
-#     json_data = []
-#     theData = cursor.fetchall()
-#     for row in theData:
-#         json_data.append(dict(zip(row_headers, row)))
-#     the_response = make_response(json.dumps(json_data, default=str))
-#     the_response.status_code = 200
-#     the_response.mimetype = 'application/json'
-#     return the_response
 
 # Toggle the publicity boolean for the given event
 @chaarg.route("/togglePublic", methods=['PATCH'])
