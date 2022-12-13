@@ -24,6 +24,8 @@ This repo contains a boilerplate setup for spinning up 2 docker containers:
 ## Video Pitch
 https://user-images.githubusercontent.com/68513658/207464376-8a47373d-4a34-4087-ba6d-ca73638001c8.mp4
 
+https://drive.google.com/file/d/1_VYkoPHXwWBA2UZ7iyyIzsVYyF7DBw2-/view?usp=sharing
+
 ## Application Summary
 CHAARG is a national organization that focuses on the empowerment of women in fitness, and it has chapters at many universities across the country including Northeastern. Each week, we host workouts at different fitness studios across the city. This systems helps manage those events and allows members to sign-up to attend.
 
