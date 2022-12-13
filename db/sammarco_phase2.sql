@@ -186,7 +186,16 @@ insert into StudioLocation (LocationId, StudioId) values (7, 3);
 insert into StudioLocation (LocationId, StudioId) values (8, 10);
 insert into StudioLocation (LocationId, StudioId) values (9, 2);
 insert into StudioLocation (LocationId, StudioId) values (10, 4);
+insert into StudioLocation (LocationId, StudioId) values (11, 1);
 insert into StudioLocation (LocationId, StudioId) values (11, 2);
+insert into StudioLocation (LocationId, StudioId) values (11, 3);
+insert into StudioLocation (LocationId, StudioId) values (11, 4);
+insert into StudioLocation (LocationId, StudioId) values (11, 5);
+insert into StudioLocation (LocationId, StudioId) values (11, 6);
+insert into StudioLocation (LocationId, StudioId) values (11, 7);
+insert into StudioLocation (LocationId, StudioId) values (11, 8);
+insert into StudioLocation (LocationId, StudioId) values (11, 9);
+insert into StudioLocation (LocationId, StudioId) values (11, 10);
 
 CREATE TABLE Review (
     EventId INT NOT NULL,
@@ -229,8 +238,7 @@ CREATE TABLE EventSession (
     EventId INT NOT NULL,
     SessionNum INT NOT NULL,
     Capacity INT,
-    Date DATE,
-    Time TIME,
+    DateTime DATETIME,
     InstructedBy INT,
     LocatedAt INT NOT NULL,
     PRIMARY KEY (EventId, SessionNum),
@@ -243,20 +251,20 @@ CREATE TABLE EventSession (
 );
 
 -- MOCK EVENT SESSION DATA
-insert into EventSession (EventId, SessionNum, Capacity, Date, Time, InstructedBy, LocatedAt) values (1, 1, 40, '2024-03-10', '16:15', 4, 1);
-insert into EventSession (EventId, SessionNum, Capacity, Date, Time, InstructedBy, LocatedAt) values (1, 2, 40, '2024-03-10', '17:15', 4, 1);
-insert into EventSession (EventId, SessionNum, Capacity, Date, Time, InstructedBy, LocatedAt) values (1, 3, 40, '2024-03-10', '18:15', 4, 1);
-insert into EventSession (EventId, SessionNum, Capacity, Date, Time, InstructedBy, LocatedAt) values (2, 1, 35, '2024-02-21', '16:00', 4, 1);
-insert into EventSession (EventId, SessionNum, Capacity, Date, Time, InstructedBy, LocatedAt) values (3, 1, 29, '2022-10-03', '19:00', 12, 4);
-insert into EventSession (EventId, SessionNum, Capacity, Date, Time, InstructedBy, LocatedAt) values (4, 1, 40, '2023-09-04', '18:20', 4, 4);
-insert into EventSession (EventId, SessionNum, Capacity, Date, Time, InstructedBy, LocatedAt) values (6, 1, 42, '2022-11-17', '16:30', 5, 3);
-insert into EventSession (EventId, SessionNum, Capacity, Date, Time, InstructedBy, LocatedAt) values (6, 2, 29, '2021-11-17', '19:45', 15, 11);
-insert into EventSession (EventId, SessionNum, Capacity, Date, Time, InstructedBy, LocatedAt) values (7, 2, 34, '2023-10-26', '20:30', 8, 1);
-insert into EventSession (EventId, SessionNum, Capacity, Date, Time, InstructedBy, LocatedAt) values (7, 1, 25, '2023-10-26', '17:30', 14, 4);
-insert into EventSession (EventId, SessionNum, Capacity, Date, Time, InstructedBy, LocatedAt) values (8, 2, 39, '2023-12-12', '20:30', 8, 2);
-insert into EventSession (EventId, SessionNum, Capacity, Date, Time, InstructedBy, LocatedAt) values (9, 1, 27, '2022-08-21', '18:15', 1, 6);
-insert into EventSession (EventId, SessionNum, Capacity, Date, Time, InstructedBy, LocatedAt) values (13, 1, 50, '2024-05-24', '15:02', 10, 3);
-insert into EventSession (EventId, SessionNum, Capacity, Date, Time, InstructedBy, LocatedAt) values (14, 1, 3, '2023-05-24', '15:00', 10, 3);
+insert into EventSession (EventId, SessionNum, Capacity, DateTime, InstructedBy, LocatedAt) values (1, 1, 40, '2024-03-10 16:15:00', 4, 1);
+insert into EventSession (EventId, SessionNum, Capacity, DateTime, InstructedBy, LocatedAt) values (1, 2, 40, '2024-03-10 17:15:00', 4, 1);
+insert into EventSession (EventId, SessionNum, Capacity, DateTime, InstructedBy, LocatedAt) values (1, 3, 40, '2024-03-10 18:15:00', 4, 1);
+insert into EventSession (EventId, SessionNum, Capacity, DateTime, InstructedBy, LocatedAt) values (2, 1, 35, '2024-02-21 16:00:00', 4, 1);
+insert into EventSession (EventId, SessionNum, Capacity, DateTime, InstructedBy, LocatedAt) values (3, 1, 29, '2022-10-03 19:00:00', 12, 4);
+insert into EventSession (EventId, SessionNum, Capacity, DateTime, InstructedBy, LocatedAt) values (4, 1, 40, '2023-09-04 18:20:00', 4, 4);
+insert into EventSession (EventId, SessionNum, Capacity, DateTime, InstructedBy, LocatedAt) values (6, 1, 42, '2022-11-17 16:30:00', 5, 3);
+insert into EventSession (EventId, SessionNum, Capacity, DateTime, InstructedBy, LocatedAt) values (6, 2, 29, '2021-11-17 19:45:00', 15, 11);
+insert into EventSession (EventId, SessionNum, Capacity, DateTime, InstructedBy, LocatedAt) values (7, 2, 34, '2023-10-26 20:30:00', 8, 1);
+insert into EventSession (EventId, SessionNum, Capacity, DateTime, InstructedBy, LocatedAt) values (7, 1, 25, '2023-10-26 17:30:00', 14, 4);
+insert into EventSession (EventId, SessionNum, Capacity, DateTime, InstructedBy, LocatedAt) values (8, 2, 39, '2023-12-12 20:30:00', 8, 2);
+insert into EventSession (EventId, SessionNum, Capacity, DateTime, InstructedBy, LocatedAt) values (9, 1, 27, '2022-08-21 18:15:00', 1, 6);
+insert into EventSession (EventId, SessionNum, Capacity, DateTime, InstructedBy, LocatedAt) values (13, 1, 50, '2024-05-24 15:02:00', 10, 3);
+insert into EventSession (EventId, SessionNum, Capacity, DateTime, InstructedBy, LocatedAt) values (14, 1, 3, '2023-05-24 15:00:00', 10, 3);
 --
 
 CREATE TABLE SignUp (
