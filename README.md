@@ -21,7 +21,10 @@ This repo contains a boilerplate setup for spinning up 2 docker containers:
 1. `pip install flask flask-mysql flask-restful cryptography flask-login`
 
 # CHAARG Weekly Workout Management System
+## Video Pitch
+https://user-images.githubusercontent.com/68513658/207464376-8a47373d-4a34-4087-ba6d-ca73638001c8.mp4
 
+## Application Summary
 CHAARG is a national organization that focuses on the empowerment of women in fitness, and it has chapters at many universities across the country including Northeastern. Each week, we host workouts at different fitness studios across the city. This systems helps manage those events and allows members to sign-up to attend.
 
 In the current app prototype, there are three user types: General CHAARG Members, CHAARG Committee Members, and CHAARG Executive-Board Members.
